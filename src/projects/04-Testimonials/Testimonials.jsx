@@ -8,16 +8,46 @@ import { useState, useEffect } from 'react';
 function Testimonials() {
 
   const [contentType, setContentType] = useState(null);
+  const [contentItems, setContentItems] = useState();
 
-  const API_REQUEST = `https://jsonplaceholder.typicode.com/${contentType}`;
+  const API_REQUEST = `https://jsonplaceholder.typicode.com/${contentType ?? 'todos'}`;
 
   useEffect(() => {
-    fetch(API_REQUEST).then(response => response.json()).then(json => console.log(json));
+    fetch(API_REQUEST)
+      .then(response => response.json())
+      .then(json => setContentItems(json));
   }, [ contentType ]);
-  
+
   const handlePostsButtonClick = () => setContentType('posts');
   const handleUsersButtonClick = () => setContentType('users');
   const handleCommentsButtonClick = () => setContentType('comments');
+
+  const renderedItems = contentItems?.map(item => {
+    if (contentType === 'posts') {
+      return (
+        <li key={item.id}>
+          <div className="card card-primary mb-2">
+            <strong>{item.title}</strong>: {item.body}
+          </div>
+        </li>);
+    } else if (contentType === 'users') {
+      return (
+        <li key={item.id}>
+          <div className="card card-primary mb-2">
+            <strong>{item.name}</strong><br />Email: {item.email}<br />Telephone: {item.phone}
+          </div>
+        </li>
+      );
+    } else {
+      return (
+        <li key={item.id}>
+          <div className="card card-primary mb-2">
+            <strong>{item.name}</strong><br />{item.body}
+          </div>
+        </li>
+      );
+    }
+  });
 
   return (
     <div className="container m-auto">
@@ -26,8 +56,8 @@ function Testimonials() {
       <Button onClick={handleUsersButtonClick} icon={<FaRegUser />} classes="btn-info" text="Users" />
       <Button onClick={handleCommentsButtonClick} icon={<LiaCommentSolid />} classes="btn-success" text="Comments" />
       <Title text={contentType ? (contentType.charAt(0).toUpperCase() + contentType.substring(1)) : 'Select from above'} classes="subtitle text-primary" />
-      {contentType && (
-        <div>{contentType}</div>
+      {renderedItems && (
+        <ul>{renderedItems}</ul>
       )}
 
     </div>
