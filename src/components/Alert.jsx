@@ -2,7 +2,14 @@ import { useState, useEffect } from 'react';
 import Button from '../components/Button';
 import { IoMdClose } from "react-icons/io";
 
-function Alert({ type, message }) {
+function Alert({ type, message, delay=false, delayTime=3000 }) {
+
+  useEffect(() => {
+    delay && setTimeout(() => {
+      setShowAlert(false);
+    }, delayTime);
+  }, []);
+
 
   const [showAlert, setShowAlert] = useState(true);
 
