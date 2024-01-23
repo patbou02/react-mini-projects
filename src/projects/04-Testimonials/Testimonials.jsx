@@ -22,15 +22,28 @@ function Testimonials() {
   const handleUsersButtonClick = () => setContentType('users');
   const handleCommentsButtonClick = () => setContentType('comments');
 
-  const ContentWrapper = ({ children }) => <li><div className="card card-primary mb-2">{children}</div></li>;
+  const ContentWrapper = ({ name, title, body }) => {
+    return (
+      <li>
+      <div className="card card-primary mb-2">
+        {name && <h2 className="card-header">{name}</h2>}
+        <div className="card-body">
+          <h4>{title}</h4>
+          <p>{body}</p>
+        </div>
+        {name && <h2 className="card-header">{name}</h2>}
+      </div>
+    </li>
+    );
+  };
 
   const renderedItems = contentItems?.map(item => {
     if (contentType === 'posts') {
-      return <ContentWrapper key={item.id}><h2>{item.title}</h2>: {item.body}</ContentWrapper>;
+      return <ContentWrapper key={item.id} title={item.title} body={item.body} />;
     } else if (contentType === 'users') {
-      return <ContentWrapper key={item.id}><h2>{item.name}</h2><br />Email: {item.email}<br />Telephone: {item.phone}</ContentWrapper>;
+      return <ContentWrapper key={item.id} name={item.name} />;
     } else {
-      return <ContentWrapper key={item.id}><h2>{item.name}</h2><br />{item.body}</ContentWrapper>;
+      return <ContentWrapper key={item.id} name={item.name} body={item.body} />;
     }
   });
 
