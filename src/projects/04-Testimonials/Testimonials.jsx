@@ -22,18 +22,16 @@ function Testimonials() {
   const handleUsersButtonClick = () => setContentType('users');
   const handleCommentsButtonClick = () => setContentType('comments');
 
-  const ContentWrapper = ({ name, title, body }) => {
+  const ContentWrapper = ({ name, title, body, email }) => {
     return (
-      <li>
       <div className="card card-primary mb-2">
         {name && <h2 className="card-header">{name}</h2>}
         <div className="card-body">
           <h4>{title}</h4>
           <p>{body}</p>
         </div>
-        {name && <h2 className="card-header">{name}</h2>}
+        {email && <h2 className="card-footer">{email}</h2>}
       </div>
-    </li>
     );
   };
 
@@ -41,7 +39,7 @@ function Testimonials() {
     if (contentType === 'posts') {
       return <ContentWrapper key={item.id} title={item.title} body={item.body} />;
     } else if (contentType === 'users') {
-      return <ContentWrapper key={item.id} name={item.name} />;
+      return <ContentWrapper key={item.id} name={item.name} body={item.body} email={item.email} />;
     } else {
       return <ContentWrapper key={item.id} name={item.name} body={item.body} />;
     }
@@ -54,10 +52,7 @@ function Testimonials() {
       <Button onClick={handleUsersButtonClick} icon={<FaRegUser />} classes="btn-info" text="Users" />
       <Button onClick={handleCommentsButtonClick} icon={<LiaCommentSolid />} classes="btn-success" text="Comments" />
       <Title text={contentType ? (contentType.charAt(0).toUpperCase() + contentType.substring(1)) : 'Select from above'} classes="subtitle text-primary" />
-      {renderedItems && (
-        <ul>{renderedItems}</ul>
-      )}
-
+      {renderedItems}
     </div>
   );
 }
