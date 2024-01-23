@@ -22,30 +22,15 @@ function Testimonials() {
   const handleUsersButtonClick = () => setContentType('users');
   const handleCommentsButtonClick = () => setContentType('comments');
 
+  const ContentWrapper = ({ children }) => <li><div className="card card-primary mb-2">{children}</div></li>;
+
   const renderedItems = contentItems?.map(item => {
     if (contentType === 'posts') {
-      return (
-        <li key={item.id}>
-          <div className="card card-primary mb-2">
-            <strong>{item.title}</strong>: {item.body}
-          </div>
-        </li>);
+      return <ContentWrapper key={item.id}><h2>{item.title}</h2>: {item.body}</ContentWrapper>;
     } else if (contentType === 'users') {
-      return (
-        <li key={item.id}>
-          <div className="card card-primary mb-2">
-            <strong>{item.name}</strong><br />Email: {item.email}<br />Telephone: {item.phone}
-          </div>
-        </li>
-      );
+      return <ContentWrapper key={item.id}><h2>{item.name}</h2><br />Email: {item.email}<br />Telephone: {item.phone}</ContentWrapper>;
     } else {
-      return (
-        <li key={item.id}>
-          <div className="card card-primary mb-2">
-            <strong>{item.name}</strong><br />{item.body}
-          </div>
-        </li>
-      );
+      return <ContentWrapper key={item.id}><h2>{item.name}</h2><br />{item.body}</ContentWrapper>;
     }
   });
 
