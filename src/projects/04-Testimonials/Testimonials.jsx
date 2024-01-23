@@ -53,7 +53,6 @@ function Testimonials() {
       <Button onClick={handleCommentsButtonClick} icon={<LiaCommentSolid />} classes="btn-success" text="Comments" />
       <Title text={contentType ? (contentType.charAt(0).toUpperCase() + contentType.substring(1)) : 'Select from above'} classes="subtitle text-primary" />
       {renderedItems}
-
     </div>
   );
 }
