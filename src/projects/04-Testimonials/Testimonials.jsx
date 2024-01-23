@@ -22,15 +22,26 @@ function Testimonials() {
   const handleUsersButtonClick = () => setContentType('users');
   const handleCommentsButtonClick = () => setContentType('comments');
 
-  const ContentWrapper = ({ children }) => <li><div className="card card-primary mb-2">{children}</div></li>;
+  const ContentWrapper = ({ name, title, body, email }) => {
+    return (
+      <div className="card card-primary mb-2">
+        {name && <h2 className="card-header">{name}</h2>}
+        <div className="card-body">
+          <h4>{title}</h4>
+          <p>{body}</p>
+        </div>
+        {email && <h2 className="card-footer">{email}</h2>}
+      </div>
+    );
+  };
 
   const renderedItems = contentItems?.map(item => {
     if (contentType === 'posts') {
-      return <ContentWrapper key={item.id}><h2>{item.title}</h2>: {item.body}</ContentWrapper>;
+      return <ContentWrapper key={item.id} title={item.title} body={item.body} />;
     } else if (contentType === 'users') {
-      return <ContentWrapper key={item.id}><h2>{item.name}</h2><br />Email: {item.email}<br />Telephone: {item.phone}</ContentWrapper>;
+      return <ContentWrapper key={item.id} name={item.name} body={item.body} email={item.email} />;
     } else {
-      return <ContentWrapper key={item.id}><h2>{item.name}</h2><br />{item.body}</ContentWrapper>;
+      return <ContentWrapper key={item.id} name={item.name} body={item.body} />;
     }
   });
 
@@ -41,9 +52,7 @@ function Testimonials() {
       <Button onClick={handleUsersButtonClick} icon={<FaRegUser />} classes="btn-info" text="Users" />
       <Button onClick={handleCommentsButtonClick} icon={<LiaCommentSolid />} classes="btn-success" text="Comments" />
       <Title text={contentType ? (contentType.charAt(0).toUpperCase() + contentType.substring(1)) : 'Select from above'} classes="subtitle text-primary" />
-      {renderedItems && (
-        <ul>{renderedItems}</ul>
-      )}
+      {renderedItems}
 
     </div>
   );
