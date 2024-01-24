@@ -15,7 +15,7 @@ function App() {
       {/*<LikeMyPhoto />*/}
       {/*<Testimonials />*/}
       {/*<Alerts />*/}
-      <TemperatureController />
+      <TemperatureController temp="32" scale="celsius" />
     </div>
   );
 }
