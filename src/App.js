@@ -3,7 +3,8 @@ import './App.css';
 //import ESignature from './projects/01-E-Signature/ESignature';
 //import LikeMyPhoto from './projects/03-like-my-photo/LikeMyPhoto';
 //import Testimonials from './projects/04-Testimonials/Testimonials';
-import Alerts from './projects/05-Alerts/Alerts';
+//import Alerts from './projects/05-Alerts/Alerts';
+import TemperatureController from './projects/06-temperature-controller/TemperatureController';
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
       {/*<RandomizeColors />*/}
       {/*<LikeMyPhoto />*/}
       {/*<Testimonials />*/}
-      <Alerts />
+      {/*<Alerts />*/}
+      <TemperatureController temp="32" scale="celsius" />
     </div>
   );
 }
